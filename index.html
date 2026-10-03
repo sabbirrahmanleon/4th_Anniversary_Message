@@ -9,17 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* 
+/* 
            =========================================================
-           ADJUST YOUR SIZES HERE
-           Change these numbers to manually adjust the sizes.
+           ADJUST YOUR SIZES AND OPACITY HERE
+           Change these numbers to manually adjust the elements.
            =========================================================
         */
         :root {
             --heart-size: 110px;           
-            --signoff-text-size: 1.8rem;   
+            --signoff-text-size: 1.8rem;
+            --inner-heart-opacity: 1;   
+            --outer-heart-opacity: 1;  /* NEW: Controls the outer white hearts */
         }
-
         /* Base page styling */
         body { 
             margin: 0; 
@@ -33,7 +34,7 @@
             position: relative; 
         }
 
-        /* --- More Visible Floating Heart Animation --- */
+        /* --- Main Outer Background Animation (White & Glowing) --- */
         .background-animation {
             position: absolute;
             top: 0;
@@ -50,14 +51,16 @@
             position: absolute;
             display: block;
             list-style: none;
-            color: rgba(255, 255, 255, 0.9); /* Bright, almost solid white */
-            text-shadow: 0 0 15px rgba(255, 105, 180, 0.9); /* Strong pink glow */
-            animation: floatUp 12s linear infinite; /* Slightly faster floating */
+            /* Pulls the opacity number from your new variable for the white color */
+            color: rgba(255, 255, 255, var(--outer-heart-opacity)); 
+            /* Pulls the opacity number from your new variable for the pink glow */
+            text-shadow: 0 0 15px rgba(255, 105, 180, var(--outer-heart-opacity)); 
+            animation: floatUp 12s linear infinite; 
             bottom: -150px;
-            font-size: 30px; /* Base size for the hearts */
+            font-size: 30px; 
         }
 
-        /* Customizing individual floating hearts (spread out to the sides) */
+
         .background-animation li:nth-child(1) { left: 15%; font-size: 45px; animation-delay: 0s; }
         .background-animation li:nth-child(2) { left: 5%; font-size: 25px; animation-delay: 2s; animation-duration: 10s; }
         .background-animation li:nth-child(3) { left: 85%; font-size: 35px; animation-delay: 4s; }
@@ -132,13 +135,51 @@
             -webkit-backdrop-filter: blur(15px);
             border-radius: 20px; 
             padding: 35px 25px; 
-            width: 75%; /* Narrower width for side borders */
+            width: 75%; 
             max-width: 340px; 
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
             border: 1px solid rgba(255, 255, 255, 0.4); 
             text-align: center; 
             max-height: 80vh; 
             overflow-y: auto;
+            position: relative; /* Added to keep the inner animation contained */
+        }
+
+        /* --- NEW: Inner Card Animation (Subtle Red Hearts) --- */
+        .card-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            border-radius: 20px;
+            z-index: 0; /* Keeps it behind the text */
+            pointer-events: none; /* Allows scrolling and clicking the text */
+        }
+
+        .card-animation li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            color: rgba(214, 48, 49, 0.15); /* #d63031 with 15% opacity */
+            animation: floatUp 8s linear infinite; 
+            bottom: -50px;
+        }
+
+        /* Positions for the soft red hearts inside the card */
+        .card-animation li:nth-child(1) { left: 10%; font-size: 35px; animation-delay: 0s; }
+        .card-animation li:nth-child(2) { left: 50%; font-size: 25px; animation-delay: 2s; animation-duration: 9s; }
+        .card-animation li:nth-child(3) { left: 80%; font-size: 40px; animation-delay: 4s; }
+        .card-animation li:nth-child(4) { left: 25%; font-size: 20px; animation-delay: 1s; animation-duration: 11s; }
+        .card-animation li:nth-child(5) { left: 65%; font-size: 45px; animation-delay: 3s; }
+
+        /* Ensure all text sits above the inner animation */
+        .glass-card h2, .glass-card h3, .glass-card p, .glass-card .sign-off {
+            position: relative;
+            z-index: 1; 
         }
 
         .glass-card h2 { 
@@ -148,7 +189,7 @@
 
         .glass-card h3 { 
             font-size: 1.1rem; 
-            color: #d63031; /* Matches the fancy font color */
+            color: #d63031; 
             margin: 0 0 25px 0; 
             font-weight: 600; 
             letter-spacing: 1px;
@@ -173,7 +214,7 @@
 </head>
 <body>
 
-    <!-- More Visible Floating Heart Animation -->
+    <!-- Main Outer Background Animation -->
     <ul class="background-animation">
         <li>&hearts;</li>
         <li>&hearts;</li>
@@ -194,6 +235,16 @@
     <!-- Letter Screen -->
     <div id="letter-container">
         <div class="glass-card">
+            
+            <!-- NEW: Subtle Red Background Animation for the Letter Body -->
+            <ul class="card-animation">
+                <li>&hearts;</li>
+                <li>&hearts;</li>
+                <li>&hearts;</li>
+                <li>&hearts;</li>
+                <li>&hearts;</li>
+            </ul>
+
             <h2 class="fancy-font">Dear Diya,</h2>
             <h3>Happy 4th Anniversary</h3>
             
