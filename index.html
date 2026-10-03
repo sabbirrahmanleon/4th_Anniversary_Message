@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-/* 
+        /* 
            =========================================================
            ADJUST YOUR SIZES AND OPACITY HERE
-           Change these numbers to manually adjust the elements.
            =========================================================
         */
         :root {
             --heart-size: 110px;           
             --signoff-text-size: 1.8rem;
             --inner-heart-opacity: 1;   
-            --outer-heart-opacity: 0.5;  /* NEW: Controls the outer white hearts */
+            --outer-heart-opacity: 0.5;  
         }
+
         /* Base page styling */
         body { 
             margin: 0; 
@@ -34,7 +34,7 @@
             position: relative; 
         }
 
-        /* --- Main Outer Background Animation (White & Glowing) --- */
+        /* --- Main Outer Background Animation --- */
         .background-animation {
             position: absolute;
             top: 0;
@@ -51,15 +51,12 @@
             position: absolute;
             display: block;
             list-style: none;
-            /* Pulls the opacity number from your new variable for the white color */
             color: rgba(255, 255, 255, var(--outer-heart-opacity)); 
-            /* Pulls the opacity number from your new variable for the pink glow */
             text-shadow: 0 0 15px rgba(255, 105, 180, var(--outer-heart-opacity)); 
             animation: floatUp 12s linear infinite; 
             bottom: -150px;
             font-size: 30px; 
         }
-
 
         .background-animation li:nth-child(1) { left: 15%; font-size: 45px; animation-delay: 0s; }
         .background-animation li:nth-child(2) { left: 5%; font-size: 25px; animation-delay: 2s; animation-duration: 10s; }
@@ -128,7 +125,7 @@
             transform: translateY(50px); 
         }
 
-        /* Glassmorphism card effect */
+        /* IDEA 1: Glassmorphism card with Shimmer Effect */
         .glass-card { 
             background: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(15px); 
@@ -137,15 +134,22 @@
             padding: 35px 25px; 
             width: 75%; 
             max-width: 340px; 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
             border: 1px solid rgba(255, 255, 255, 0.4); 
             text-align: center; 
             max-height: 80vh; 
             overflow-y: auto;
-            position: relative; /* Added to keep the inner animation contained */
+            position: relative; 
+            /* Shimmer animation attached here */
+            animation: shimmerBorder 3s infinite alternate ease-in-out; 
         }
 
-        /* --- NEW: Inner Card Animation (Subtle Red Hearts) --- */
+        /* Shimmer Keyframes */
+        @keyframes shimmerBorder {
+            0% { box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), 0 0 5px rgba(255, 255, 255, 0.2); }
+            100% { box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), 0 0 30px rgba(255, 105, 180, 0.6); }
+        }
+
+        /* Inner Card Animation (Subtle Red Hearts) */
         .card-animation {
             position: absolute;
             top: 0;
@@ -156,20 +160,19 @@
             margin: 0;
             padding: 0;
             border-radius: 20px;
-            z-index: 0; /* Keeps it behind the text */
-            pointer-events: none; /* Allows scrolling and clicking the text */
+            z-index: 0; 
+            pointer-events: none; 
         }
 
         .card-animation li {
             position: absolute;
             display: block;
             list-style: none;
-            color: rgba(214, 48, 49, 0.15); /* #d63031 with 15% opacity */
+            color: rgba(214, 48, 49, var(--inner-heart-opacity)); 
             animation: floatUp 8s linear infinite; 
             bottom: -50px;
         }
 
-        /* Positions for the soft red hearts inside the card */
         .card-animation li:nth-child(1) { left: 10%; font-size: 35px; animation-delay: 0s; }
         .card-animation li:nth-child(2) { left: 50%; font-size: 25px; animation-delay: 2s; animation-duration: 9s; }
         .card-animation li:nth-child(3) { left: 80%; font-size: 40px; animation-delay: 4s; }
@@ -177,7 +180,7 @@
         .card-animation li:nth-child(5) { left: 65%; font-size: 45px; animation-delay: 3s; }
 
         /* Ensure all text sits above the inner animation */
-        .glass-card h2, .glass-card h3, .glass-card p, .glass-card .sign-off {
+        .glass-card h2, .glass-card h3, .glass-card p, .glass-card b {
             position: relative;
             z-index: 1; 
         }
@@ -202,6 +205,8 @@
             line-height: 1.7; 
             text-align: left; 
             margin-bottom: 18px; 
+            /* Minimum height to prevent bouncing during typing */
+            min-height: 1.7rem; 
         }
 
         .sign-off { 
@@ -209,6 +214,34 @@
             margin-top: 30px; 
             font-size: var(--signoff-text-size); 
             line-height: 1.2;
+        }
+
+        /* IDEA 2: Sparkle styling */
+        .sparkle {
+            position: fixed;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.9);
+            z-index: 20;
+            animation: sparkleOut 2s ease-out forwards;
+        }
+
+        @keyframes sparkleOut {
+            0% { transform: scale(1) translate(0, 0); opacity: 1; }
+            100% { transform: scale(0) var(--sparkle-translate); opacity: 0; }
+        }
+
+        /* IDEA 3: Cursor for Typewriter Effect */
+        .cursor::after {
+            content: '|';
+            color: #d63031;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -229,14 +262,14 @@
     <!-- Cover Screen -->
     <div id="cover">
         <h1 class="fancy-font">4 Years Together</h1>
-        <div class="heart" onclick="openLetter()">&hearts;</div>
+        <!-- Pass the event so we know exactly where she clicked -->
+        <div class="heart" onclick="openLetter(event)">&hearts;</div>
     </div>
 
     <!-- Letter Screen -->
     <div id="letter-container">
-        <div class="glass-card">
+        <div class="glass-card" id="card">
             
-            <!-- NEW: Subtle Red Background Animation for the Letter Body -->
             <ul class="card-animation">
                 <li>&hearts;</li>
                 <li>&hearts;</li>
@@ -245,40 +278,131 @@
                 <li>&hearts;</li>
             </ul>
 
-            <h2 class="fancy-font">Dear Diya,</h2>
-            <h3>Happy 4th Anniversary</h3>
+            <!-- Added 'type-target' class to elements we want to type out -->
+            <h2 class="fancy-font type-target">Dear Diya,</h2>
+            <h3 class="type-target">Happy 4th Anniversary</h3>
             
-            <p>About four years ago, you walked into my life, and little did I know how much you would change it, and me, for the better.</p>
+            <p class="type-target">About four years ago, you walked into my life, and little did I know how much you would change it, and me, for the better.</p>
             
-            <p>Being with you has helped me grow into a person I never thought I would become. You've helped me see myself, as well as the world differently, believe in myself, and find a confidence I never knew I had. Looking back, I realize that I haven't just found love in you; I've also found a better version of myself.</p>
+            <p class="type-target">Being with you has helped me grow into a person I never thought I would become. You've helped me see myself, as well as the world differently, believe in myself, and find a confidence I never knew I had. Looking back, I realize that I haven't just found love in you; I've also found a better version of myself.</p>
             
-            <p>Thank you for believing in me, for standing by me, and for being such a beautiful part of my journey. I'm so grateful that, our paths crossed. Happy anniversary, my precious Diya.</p>
+            <p class="type-target">Thank you for believing in me, for standing by me, and for being such a beautiful part of my journey. I'm so grateful that, our paths crossed. Happy anniversary, my precious Diya.</p>
             
-            <p>I love you endlessly.</p>
+            <p class="type-target">I love you endlessly.</p>
             
-            <b><div class="sign-off fancy-font">Forever yours,<br>Leon</div></b>
+            <b><div class="sign-off fancy-font type-target">Forever yours,<br>Leon</div></b>
         </div>
     </div>
 
-    <!-- JavaScript for interactivity -->
+    <!-- JavaScript for Interactivity -->
     <script>
-        function openLetter() {
+        function openLetter(event) {
             if (navigator.vibrate) navigator.vibrate(50);
             
             const cover = document.getElementById('cover');
             const letterContainer = document.getElementById('letter-container');
+            const card = document.getElementById('card');
             
+            // --- IDEA 2: Generate Sparkles on Click ---
+            const rect = event.target.getBoundingClientRect();
+            // Find center of the heart
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            // Create 30 sparkles
+            for (let i = 0; i < 30; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                // Random size between 5px and 15px
+                sparkle.style.width = (Math.random() * 10 + 5) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                
+                // Random direction and distance
+                let angle = Math.random() * Math.PI * 2;
+                let distance = Math.random() * 150 + 50;
+                let tx = Math.cos(angle) * distance;
+                let ty = Math.sin(angle) * distance;
+                
+                sparkle.style.setProperty('--sparkle-translate', `translate(${tx}px, ${ty}px)`);
+                document.body.appendChild(sparkle);
+                
+                // Clean up sparkle elements after animation
+                setTimeout(() => sparkle.remove(), 800);
+            }
+            
+            // --- IDEA 3: Prepare Typewriter Effect ---
+            const typeTargets = document.querySelectorAll('.type-target');
+            const originalTexts = [];
+            
+            // Lock the height of the card so it doesn't shrink when we remove the text
+            card.style.minHeight = card.offsetHeight + 'px';
+            
+            // Save original text and clear the screen
+            typeTargets.forEach(el => {
+                originalTexts.push(el.innerHTML);
+                el.innerHTML = ''; 
+            });
+
+            // Fade out the cover
             cover.style.opacity = '0';
             
+            // After 1 second, slide up the letter
             setTimeout(() => {
                 cover.style.display = 'none';
                 letterContainer.style.display = 'flex';
                 
-                void letterContainer.offsetWidth;
+                void letterContainer.offsetWidth; // Trigger reflow
                 
                 letterContainer.style.opacity = '1';
                 letterContainer.style.transform = 'translateY(0)';
+                
+                // Wait another 1 second for the slide up to finish, then start typing!
+                setTimeout(() => {
+                    typeOutElements(typeTargets, originalTexts, 0);
+                }, 1000);
+                
             }, 1000);
+        }
+
+        // Recursive typing function
+        function typeOutElements(elements, texts, index) {
+            if (index >= elements.length) return; // All done!
+            
+            const el = elements[index];
+            const text = texts[index];
+            let charIndex = 0;
+            
+            el.classList.add('cursor'); // Show blinking cursor on current line
+            
+            function typeNextChar() {
+                if (charIndex < text.length) {
+                    // Check if we hit an HTML tag (like <br>) so we don't type it out literally
+                    if (text.charAt(charIndex) === '<') {
+                        let tag = '';
+                        while (text.charAt(charIndex) !== '>' && charIndex < text.length) {
+                            tag += text.charAt(charIndex);
+                            charIndex++;
+                        }
+                        tag += '>';
+                        el.innerHTML += tag;
+                        charIndex++;
+                        typeNextChar(); // Skip delay for HTML tags
+                    } else {
+                        // Type a normal character
+                        el.innerHTML += text.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeNextChar, 100); // 100ms typing speed
+                    }
+                } else {
+                    // Finished this element, remove cursor and move to the next one
+                    el.classList.remove('cursor');
+                    typeOutElements(elements, texts, index + 1);
+                }
+            }
+            
+            typeNextChar();
         }
     </script>
 </body>
