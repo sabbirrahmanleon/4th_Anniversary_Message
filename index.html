@@ -13,12 +13,11 @@
            =========================================================
            ADJUST YOUR SIZES HERE
            Change these numbers to manually adjust the sizes.
-           'px' stands for pixels. 'rem' is a relative unit for fonts.
            =========================================================
         */
         :root {
-            --heart-size: 110px;           /* Previously 80px. Increase or decrease this number! */
-            --signoff-text-size: 1.8rem;   /* Previously 2.5rem. Try 1.5rem or 2.0rem if you want to test! */
+            --heart-size: 110px;           
+            --signoff-text-size: 1.8rem;   
         }
 
         /* Base page styling */
@@ -34,7 +33,7 @@
             position: relative; 
         }
 
-        /* Subtle Background Animation */
+        /* --- More Visible Floating Heart Animation --- */
         .background-animation {
             position: absolute;
             top: 0;
@@ -51,20 +50,22 @@
             position: absolute;
             display: block;
             list-style: none;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.25); 
-            animation: floatUp 15s linear infinite; 
+            color: rgba(255, 255, 255, 0.9); /* Bright, almost solid white */
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.9); /* Strong pink glow */
+            animation: floatUp 12s linear infinite; /* Slightly faster floating */
             bottom: -150px;
-            border-radius: 50%; 
+            font-size: 30px; /* Base size for the hearts */
         }
 
-        .background-animation li:nth-child(1) { left: 25%; width: 40px; height: 40px; animation-delay: 0s; }
-        .background-animation li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-        .background-animation li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .background-animation li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-        .background-animation li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-        .background-animation li:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 3s; }
+        /* Customizing individual floating hearts (spread out to the sides) */
+        .background-animation li:nth-child(1) { left: 15%; font-size: 45px; animation-delay: 0s; }
+        .background-animation li:nth-child(2) { left: 5%; font-size: 25px; animation-delay: 2s; animation-duration: 10s; }
+        .background-animation li:nth-child(3) { left: 85%; font-size: 35px; animation-delay: 4s; }
+        .background-animation li:nth-child(4) { left: 40%; font-size: 55px; animation-delay: 0s; animation-duration: 16s; }
+        .background-animation li:nth-child(5) { left: 75%; font-size: 25px; animation-delay: 0s; }
+        .background-animation li:nth-child(6) { left: 90%; font-size: 45px; animation-delay: 3s; }
+        .background-animation li:nth-child(7) { left: 50%; font-size: 30px; animation-delay: 7s; animation-duration: 11s; }
+        .background-animation li:nth-child(8) { left: 20%; font-size: 20px; animation-delay: 5s; }
 
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
@@ -96,7 +97,7 @@
 
         /* The glowing interactive heart */
         .heart { 
-            font-size: var(--heart-size); /* This pulls the size from the variable you adjust at the top */
+            font-size: var(--heart-size); 
             color: white; 
             cursor: pointer; 
             animation: pulse 1.5s infinite; 
@@ -131,12 +132,12 @@
             -webkit-backdrop-filter: blur(15px);
             border-radius: 20px; 
             padding: 35px 25px; 
-            width: 85%; 
-            max-width: 400px; 
+            width: 75%; /* Narrower width for side borders */
+            max-width: 340px; 
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
             border: 1px solid rgba(255, 255, 255, 0.4); 
             text-align: center; 
-            max-height: 85vh; 
+            max-height: 80vh; 
             overflow-y: auto;
         }
 
@@ -147,7 +148,7 @@
 
         .glass-card h3 { 
             font-size: 1.1rem; 
-            color: #d63031; 
+            color: #d63031; /* Matches the fancy font color */
             margin: 0 0 25px 0; 
             font-weight: 600; 
             letter-spacing: 1px;
@@ -162,25 +163,26 @@
             margin-bottom: 18px; 
         }
 
-        /* Updated styling for the sign-off */
         .sign-off { 
             text-align: center; 
             margin-top: 30px; 
-            font-size: var(--signoff-text-size); /* This pulls the size from the variable you adjust at the top */
+            font-size: var(--signoff-text-size); 
             line-height: 1.2;
         }
     </style>
 </head>
 <body>
 
-    <!-- Subtle Floating Background Animation -->
+    <!-- More Visible Floating Heart Animation -->
     <ul class="background-animation">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
+        <li>&hearts;</li>
     </ul>
 
     <!-- Cover Screen -->
@@ -203,7 +205,7 @@
             
             <p>I love you endlessly.</p>
             
-            <div class="sign-off fancy-font"><b><b>Forever yours</b>,<br><b>Leon</b></div>
+            <div class="sign-off fancy-font">Forever yours,<br>Leon</div>
         </div>
     </div>
 
