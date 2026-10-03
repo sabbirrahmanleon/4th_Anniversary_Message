@@ -9,6 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
+        /* 
+           =========================================================
+           ADJUST YOUR SIZES HERE
+           Change these numbers to manually adjust the sizes.
+           'px' stands for pixels. 'rem' is a relative unit for fonts.
+           =========================================================
+        */
+        :root {
+            --heart-size: 110px;           /* Previously 80px. Increase or decrease this number! */
+            --signoff-text-size: 1.8rem;   /* Previously 2.5rem. Try 1.5rem or 2.0rem if you want to test! */
+        }
+
         /* Base page styling */
         body { 
             margin: 0; 
@@ -19,10 +31,10 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            position: relative; /* Added to help position the background animation */
+            position: relative; 
         }
 
-        /* --- NEW: Subtle Background Animation --- */
+        /* Subtle Background Animation */
         .background-animation {
             position: absolute;
             top: 0;
@@ -32,7 +44,7 @@
             overflow: hidden;
             margin: 0;
             padding: 0;
-            z-index: -1; /* Keeps the animation behind everything else */
+            z-index: -1; 
         }
 
         .background-animation li {
@@ -41,13 +53,12 @@
             list-style: none;
             width: 20px;
             height: 20px;
-            background: rgba(255, 255, 255, 0.25); /* Semi-transparent white */
-            animation: floatUp 15s linear infinite; /* Slow, continuous animation */
+            background: rgba(255, 255, 255, 0.25); 
+            animation: floatUp 15s linear infinite; 
             bottom: -150px;
-            border-radius: 50%; /* Makes the shapes perfectly round */
+            border-radius: 50%; 
         }
 
-        /* Customizing individual floating particles (size, position, delay) */
         .background-animation li:nth-child(1) { left: 25%; width: 40px; height: 40px; animation-delay: 0s; }
         .background-animation li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
         .background-animation li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
@@ -55,12 +66,10 @@
         .background-animation li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
         .background-animation li:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 3s; }
 
-        /* The keyframes that define how the particles move */
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
-        /* ---------------------------------------- */
 
         /* Reusable class for the fancy cursive font */
         .fancy-font { 
@@ -87,11 +96,12 @@
 
         /* The glowing interactive heart */
         .heart { 
-            font-size: 80px; 
+            font-size: var(--heart-size); /* This pulls the size from the variable you adjust at the top */
+            color: white; 
             cursor: pointer; 
             animation: pulse 1.5s infinite; 
             text-shadow: 0 0 20px rgba(255,105,180,0.8); 
-            -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
+            -webkit-tap-highlight-color: transparent; 
         }
 
         @keyframes pulse { 
@@ -135,17 +145,15 @@
             margin-bottom: 5px; 
         }
 
-        /* Styling for "Happy 4th Anniversary" */
         .glass-card h3 { 
             font-size: 1.1rem; 
-            color: #555; 
+            color: #d63031; 
             margin: 0 0 25px 0; 
             font-weight: 600; 
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        /* Styling for the personal message */
         .glass-card p { 
             font-size: 1rem; 
             color: #333; 
@@ -154,12 +162,12 @@
             margin-bottom: 18px; 
         }
 
-        /* Styling for the sign-off */
+        /* Updated styling for the sign-off */
         .sign-off { 
-            text-align: right !important; 
-            font-weight: 600; 
+            text-align: center; 
             margin-top: 30px; 
-            color: #d63031 !important;
+            font-size: var(--signoff-text-size); /* This pulls the size from the variable you adjust at the top */
+            line-height: 1.2;
         }
     </style>
 </head>
@@ -178,7 +186,7 @@
     <!-- Cover Screen -->
     <div id="cover">
         <h1 class="fancy-font">4 Years Together</h1>
-        <div class="heart" onclick="openLetter()">❤</div>
+        <div class="heart" onclick="openLetter()">&hearts;</div>
     </div>
 
     <!-- Letter Screen -->
@@ -195,33 +203,26 @@
             
             <p>I love you endlessly.</p>
             
-            <p class="sign-off">Forever yours,<br>Leon.</p>
+            <div class="sign-off fancy-font"><b><b>Forever yours</b>,<br><b>Leon</b></div>
         </div>
     </div>
 
     <!-- JavaScript for interactivity -->
     <script>
         function openLetter() {
-            // Attempt a subtle vibration for supported mobile devices
             if (navigator.vibrate) navigator.vibrate(50);
             
-            // Get our HTML elements
             const cover = document.getElementById('cover');
             const letterContainer = document.getElementById('letter-container');
             
-            // Fade out the cover
             cover.style.opacity = '0';
             
-            // Wait for the fade out to finish (1 second), then show the letter
             setTimeout(() => {
                 cover.style.display = 'none';
                 letterContainer.style.display = 'flex';
                 
-                // This small trick forces the browser to register the display change
-                // before starting the fade-in animation
                 void letterContainer.offsetWidth;
                 
-                // Fade in and slide up the letter
                 letterContainer.style.opacity = '1';
                 letterContainer.style.transform = 'translateY(0)';
             }, 1000);
