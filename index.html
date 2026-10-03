@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Diya</title>
+    
+    <!-- Importing the fancy cursive font and the clean standard font -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base page styling */
+        body { 
+            margin: 0; 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); 
+            font-family: 'Open Sans', sans-serif; 
+            height: 100vh; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative; /* Added to help position the background animation */
+        }
+
+        /* --- NEW: Subtle Background Animation --- */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            z-index: -1; /* Keeps the animation behind everything else */
+        }
+
+        .background-animation li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.25); /* Semi-transparent white */
+            animation: floatUp 15s linear infinite; /* Slow, continuous animation */
+            bottom: -150px;
+            border-radius: 50%; /* Makes the shapes perfectly round */
+        }
+
+        /* Customizing individual floating particles (size, position, delay) */
+        .background-animation li:nth-child(1) { left: 25%; width: 40px; height: 40px; animation-delay: 0s; }
+        .background-animation li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .background-animation li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .background-animation li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .background-animation li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .background-animation li:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 3s; }
+
+        /* The keyframes that define how the particles move */
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        /* ---------------------------------------- */
+
+        /* Reusable class for the fancy cursive font */
+        .fancy-font { 
+            font-family: 'Great Vibes', cursive; 
+            color: #d63031;
+            margin: 0;
+        }
+
+        /* Styling for the initial cover screen */
+        #cover { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            z-index: 10; 
+            transition: opacity 1s ease; 
+        }
+
+        #cover h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 30px; 
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* The glowing interactive heart */
+        .heart { 
+            font-size: 80px; 
+            cursor: pointer; 
+            animation: pulse 1.5s infinite; 
+            text-shadow: 0 0 20px rgba(255,105,180,0.8); 
+            -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
+        }
+
+        @keyframes pulse { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.15); } 
+            100% { transform: scale(1); } 
+        }
+
+        /* Container for the sliding letter */
+        #letter-container { 
+            display: none; 
+            position: absolute; 
+            bottom: 0; 
+            width: 100%; 
+            height: 100%; 
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0; 
+            transition: opacity 1s ease, transform 1s ease; 
+            transform: translateY(50px); 
+        }
+
+        /* Glassmorphism card effect */
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; 
+            padding: 35px 25px; 
+            width: 85%; 
+            max-width: 400px; 
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            text-align: center; 
+            max-height: 85vh; 
+            overflow-y: auto;
+        }
+
+        .glass-card h2 { 
+            font-size: 3rem; 
+            margin-bottom: 5px; 
+        }
+
+        /* Styling for "Happy 4th Anniversary" */
+        .glass-card h3 { 
+            font-size: 1.1rem; 
+            color: #555; 
+            margin: 0 0 25px 0; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Styling for the personal message */
+        .glass-card p { 
+            font-size: 1rem; 
+            color: #333; 
+            line-height: 1.7; 
+            text-align: left; 
+            margin-bottom: 18px; 
+        }
+
+        /* Styling for the sign-off */
+        .sign-off { 
+            text-align: right !important; 
+            font-weight: 600; 
+            margin-top: 30px; 
+            color: #d63031 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Subtle Floating Background Animation -->
+    <ul class="background-animation">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <!-- Cover Screen -->
+    <div id="cover">
+        <h1 class="fancy-font">4 Years Together</h1>
+        <div class="heart" onclick="openLetter()">❤</div>
+    </div>
+
+    <!-- Letter Screen -->
+    <div id="letter-container">
+        <div class="glass-card">
+            <h2 class="fancy-font">Dear Diya,</h2>
+            <h3>Happy 4th Anniversary</h3>
+            
+            <p>About four years ago, you walked into my life, and little did I know how much you would change it, and me, for the better.</p>
+            
+            <p>Being with you has helped me grow into a person I never thought I would become. You've helped me see myself, as well as the world differently, believe in myself, and find a confidence I never knew I had. Looking back, I realize that I haven't just found love in you; I've also found a better version of myself.</p>
+            
+            <p>Thank you for believing in me, for standing by me, and for being such a beautiful part of my journey. I'm so grateful that, our paths crossed. Happy anniversary, my precious Diya.</p>
+            
+            <p>I love you endlessly.</p>
+            
+            <p class="sign-off">Forever yours,<br>Leon.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        function openLetter() {
+            // Attempt a subtle vibration for supported mobile devices
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            // Get our HTML elements
+            const cover = document.getElementById('cover');
+            const letterContainer = document.getElementById('letter-container');
+            
+            // Fade out the cover
+            cover.style.opacity = '0';
+            
+            // Wait for the fade out to finish (1 second), then show the letter
+            setTimeout(() => {
+                cover.style.display = 'none';
+                letterContainer.style.display = 'flex';
+                
+                // This small trick forces the browser to register the display change
+                // before starting the fade-in animation
+                void letterContainer.offsetWidth;
+                
+                // Fade in and slide up the letter
+                letterContainer.style.opacity = '1';
+                letterContainer.style.transform = 'translateY(0)';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
